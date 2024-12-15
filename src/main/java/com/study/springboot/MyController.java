@@ -11,7 +11,7 @@ public class MyController {
 	
 	@GetMapping("/")
 	public @ResponseBody String root() throws Exception {
-		return "Validator (1)";
+		return "ValidationUtil (2)";
 	}
 	
 	@GetMapping("/insertForm")
@@ -27,6 +27,15 @@ public class MyController {
 		ContentValidator validator = new ContentValidator();
 		validator.validate(contentDto, result);
 		if(result.hasErrors()) {
+			System.out.println("getAllErrors : " + result.getAllErrors());
+			
+			if(result.getFieldError("writer") != null) {
+				System.out.println("1: " + result.getFieldError("writer").getCode());
+			}
+			if(result.getFieldError("content") != null) {
+				System.out.println("2: " + result.getFieldError("content").getCode());
+			}
+			
 			page = "createPage";
 		}
 		
